@@ -14,8 +14,8 @@
         }
         function getWordsBeginWith(words, begin_char) {
             var return_words = [];
-            var small_char= begin_char, toLowerCase
-            var large_char= begin_char, toUpperCase
+            var small_char= begin_char, toLowerCase()
+            var large_char= begin_char, toUpperCase()
             for (var i = 0; i < words.length; i++) {
                 if (words[i].startsWith(small_char) || words[i].startsWith(large_char))
                     return_words.push(words[i]);}
