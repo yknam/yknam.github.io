@@ -1,0 +1,120 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Exercise</title>
+    <script   src="https://code.jquery.com/jquery-1.12.3.min.js"   integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   crossorigin="anonymous"></script>
+
+    <script>
+        var first_val;
+        var operand;
+        function display_debug() {
+            var debug_out = document.getElementById("debug_area");
+            var debug_text = "<p>first_val:" + first_val + "</p>";
+            $('debug_area').html(debug_text);
+            debug_out.style.background = "yellow";
+            debug_out.style.color = "red";
+            debug_out.style.width ="500px";
+            debug_out.style.height="150px";
+            debug_out.innerHTML = debug_text;
+        }
+        function button_click() {
+            var num = $(this).text();
+            var newval = $('#text_display').val() +num;
+            $('#text_display').val(newval);
+            display_debug();
+        }
+
+        function button_plus() {
+            var text = $("#text_display");
+            first_val = parseInt(text.val());
+            text.val('');
+            operand = 'plus';
+            display_debug();
+        }
+        function button_sub() {
+            var text = $("#text_display");
+            first_val = parseInt(text.val());
+            text.val('');
+            operand = 'sub';
+            display_debug();
+        }
+        function button_mul() {
+            var text = $("#text_display");
+            first_val = parseInt(text.val());
+            text.val('');
+            operand = 'mul';
+            display_debug();
+        }
+        function button_div() {
+            var text = $("#text_display");
+            first_val = parseInt(text.val());
+            text.val('');
+            operand = 'div';
+            display_debug();
+        }
+        function button_equal() {
+            var text = $("#text_display");
+            var second_val = parseInt(text.val());
+            if (operand == 'plus') {
+                text.val('' + (first_val + second_val));
+            }
+            else if (operand == 'sub'){
+                text.val(''+(first_val - second_val));
+            }
+            else if (operand == 'mul'){
+                text.val(''+(first_val * second_val));
+            }
+            else if (operand == 'div'){
+                text.val(''+(first_val / second_val));
+            }
+            operand = '';
+            display_debug();
+        }
+        function button_clear() {
+            var text = $("#text_display");
+            text.val('');
+            operand = '';
+            display_debug();
+        }
+        $(document).ready(function () {
+            $(".num_btn").click(button_click);
+            $('#btn_plus').click(button_plus);
+            $('#btn_sub').click(button_sub);
+            $('#btn_mul').click(button_mul);
+            $('#btn_div').click(button_div);
+            $('#btn_equal').click(button_equal);
+            $('#btn_clear').click(button_clear);
+        });
+    </script>
+</head>
+<body>
+
+<input type="text" id="text_display"/><br/>
+<button class="num_btn">1</button>
+<button class="num_btn">2</button>
+<button class="num_btn">3</button>
+<button id="btn_plus"> + </button><br/>
+<button class="num_btn">4</button>
+<button class="num_btn">5</button>
+<button class="num_btn">6</button>
+<button id="btn_sub">-</button><br/>
+<button class="num_btn">7</button>
+<button class="num_btn">8</button>
+<button class="num_btn">9</button>
+<button id="btn_mul">×</button><br/>
+<button id="btn_clear"> c </button>
+<button class="num_btn">0</button>
+<button id="btn_div">/</button><br/>
+<button id="btn_equal"> = </button>
+
+
+
+
+<div id="debug_area">
+</div>
+</body>
+</html>
