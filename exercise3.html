@@ -2,125 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DOM Exercise</title>
-    <script   src="https://code.jquery.com/jquery-1.12.3.min.js"   integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   crossorigin="anonymous"></script>
-    <script>
-        var first_val;
-        var operand;
-
-        function display_debug() {
-            var debug_text = "<p>first_val:" + first_val + "</p>";
-            debug_text += "<p>operand:" + operand + "</p>";
-            $('#debug_area').html(debug_text);
-        }
-
-        function button_click() {
-            var num = $(this).text(); //this.textContent;
-            var newval = $('#text_display').val() + num;
-            $('#text_display').val(newval);
-
-            display_debug();
-        }
-
-        function button_plus() {
-            var text = $("#text_display"); // TODO: to jQuery
-            first_val = parseInt(text.val()); // TODO: to jQuery
-            text.val(''); // TODO: to jQuery
-            operand = 'plus';
-
-            display_debug();
-        }
-
-        function button_minus() {
-            var text = $("#text_display");
-            first_val = parseInt(text.val());
-            text.val('');
-            operand = 'minus';
-
-            display_debug();
-        }
-
-        function button_division() {
-            var text = $("#text_display");
-            first_val = parseInt(text.val());
-            text.val('');
-            operand = 'division';
-
-            display_debug();
-        }
-
-        function button_multiple() {
-            var text = $("#text_display");
-            first_val = parseInt(text.val());
-            text.val('');
-            operand = 'multiple';
-
-            display_debug();
-        }
-
-        function button_equal() {
-            var text = $("#text_display");
-            var second_val = parseInt(text.val());
-            if (operand == 'plus') {
-                text.val(''+first_val + second_val);
-            }
-            else if(operand == 'minus') {
-                text.val(''+first_val - second_val);
-            }
-            else if(operand == 'division') {
-                text.val(''+first_val / second_val);
-            }
-            else if(operand == 'multiple') {
-                text.val('' + first_val * second_val);
-            }
-            operand = '';
-
-            display_debug();
-        }
-
-        function button_clear() {
-            var text = $("#text_display");
-            text.val('');
-            operand = '';
-
-            display_debug();
-        }
-
-        $(document).ready(function () {
-            $(".num_btn").click(button_click);
-
-            $('#btn_plus').click(button_plus);
-
-            $("#btn_equal").click(button_equal);
-            $("#btn_clear").click(button_clear);
-            $("#btn_minus").click(button_minus);
-            $("#btn_division").click(button_division);
-            $("#btn_multiple").click(button_multiple);
-        });
-    </script>
+    <title>Title</title>
 </head>
 <body>
-
-<input type="text" id="text_display"/><br/>
-<button class="num_btn">1</button>
-<button class="num_btn">2</button>
-<button class="num_btn">3</button>
-<button id="btn_clear">C</button><br/>
-<button class="num_btn">4</button>
-<button class="num_btn">5</button>
-<button class="num_btn">6</button>
-<button id="btn_plus">+</button>
-<button id="btn_minus">-</button><br/>
-<button class="num_btn">7</button>
-<button class="num_btn">8</button>
-<button class="num_btn">9</button>
-<button id="btn_multiple">×</button>
-<button id="btn_division">÷</button><br/>
-<button class="num_btn">0</button><br/>
-<button id="btn_equal">=</button><br/>
-
-
-<div id="debug_area">
+<div>
+    <input type="radio" name="view" checked>테이블
+    <input type="radio" name="view">목록
 </div>
+<div id="view_area">
+</div>
+<input type="text" id="name">
+<input type="text" id="type">
+<button id="add">추가</button>
+<script>
+    var data = [{name: '사자', type: '포유류'},
+        {name: '코끼리', type:'포유류'},
+        {name: '펭귄', type: '조류'},
+        {name: '돌고래', type: '포유류'},
+        {name: '상어', type: '어류'}];
+
+    function radio_changed(e) {
+        var view_radio = document.getElementsByName("view");
+        var bTable = false;
+        if (view_radio[0].checked) {
+            bTable = true;
+        }
+
+        var view_area = document.getElementById("view_area");
+
+        var html = '';
+        if (bTable) {
+            html += '<table border>';
+            for (var i = 0; i < data.length; i++) {
+                html += '<tr><td>' + data[i].name + '</td><td>' + data[i].type + '</td></tr>';
+            }
+            html += '</table>';
+        } else {
+            // TODO: 목록을 선택했을때 보여주기 위한 코드
+            html += '<ul>';
+            for(var i=0;i<data.length;i++){
+                html +='<li>'+data[i].name+':'+data[i].type+'</li>';
+            }
+            html +='</ul>';
+            // -----
+        }
+
+        document.getElementById('view_area').innerHTML = html;
+    }
+
+    var view_radio = document.getElementsByName("view");
+    view_radio[0].onclick = radio_changed;
+    view_radio[1].onclick = radio_changed;
+
+    document.getElementById('add').onclick = function () {
+        var name_val = document.getElementById('name').value;
+        var type_val = document.getElementById('type').value;
+
+        // TODO: 동일한 이름이 존재하면 추가되지 않도록 하는 코드를 작성.
+
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].name == name_val) {
+                        alert('이미 존재');
+                        return;
+                    }
+                }
+    // -----
+    data[data.length] = {name: name_val, type: type_val};
+        radio_changed();
+    };
+
+    radio_changed();
+
+</script>
 </body>
 </html>
